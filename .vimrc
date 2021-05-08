@@ -18,6 +18,7 @@ set autowrite
 set ruler
 set colorcolumn=80
 set backspace=indent,eol,start
+set hlsearch
 
 set background=dark
 
@@ -29,6 +30,7 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 " 3. far.vim: Find And Replace
 " 4. vim-gitgutter: check git status
 " 5. YouCompleteMe: code completion engine form vim
+" 6. vim-javascript: syntex highlight and indentation for js
 
 call plug#begin('~/.vim/plugged')
 Plug 'morhetz/gruvbox'
@@ -36,6 +38,7 @@ Plug 'vim-scripts/indentpython.vim'
 Plug 'brooth/far.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+Plug 'pangloss/vim-javascript'
 call plug#end()
 
 " [Settings for Plugins]
@@ -43,6 +46,14 @@ call plug#end()
 colorscheme gruvbox
 " 2. enable Farundo cmd in brooth.far.vim plugin
 let g:far#enable_undo=1
+" 3. youCompleteme doesn't open up a split window with function definition
+" https://stackoverflow.com/questions/38534285/vim-youcompleteme-plugin-opens-up-a-split-window-with-function-definition
+let g:ycm_autoclose_preview_window_after_insertion = 1
+
+:command WQ wq
+:command Wq wq
+:command W w
+:command Q q
 
 " [Resolve Problem]
 " 1. The ycmd server SHUT DOWN (restart with :YcmRestartServer) ISSUE
@@ -54,3 +65,4 @@ let g:far#enable_undo=1
 "   -> 1. deactivate pyenv first: `pyenv local system`
 "   -> 2. reinstall MacVim: `brew install MacVim`
 "   -> 3. install ycmd with python 3: `python3 ~/.vim/plugged/YouCompleteMe/install.py`
+"
