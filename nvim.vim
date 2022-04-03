@@ -19,12 +19,10 @@ set ruler
 set colorcolumn=80
 set backspace=indent,eol,start
 set hlsearch
-set statusline=%F
-set laststatus=2
 set smarttab
 set cindent
-
 set background=dark
+set statusline=%f
 
 if has("autocmd")
   filetype on
@@ -45,6 +43,7 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 " 4. vim-gitgutter: check git status
 " 5. YouCompleteMe: code completion engine for vim
 " 6. vim-javascript: syntex highlight and indentation for js
+" 7. close-tag: add close tag like </tag> automatically for js
 
 call plug#begin('~/.vim/plugged')
 Plug 'morhetz/gruvbox'
@@ -64,6 +63,10 @@ Plug 'ternjs/tern_for_vim', { 'do' : 'npm install' }  " check ~/.tern-project
 " https://github.com/alvan/vim-closetag
 Plug 'alvan/vim-closetag'
 Plug 'Valloric/MatchTagAlways'
+" https://github.com/preservim/nerdtree
+Plug 'preservim/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'  " nerdtree extension
+Plug 'ryanoasis/vim-devicons' " nerdtree extension
 call plug#end()
 
 " [Settings for js autocomplete]
@@ -82,7 +85,17 @@ let g:far#enable_undo=1
 " https://stackoverflow.com/questions/38534285/vim-youcompleteme-plugin-opens-up-a-split-window-with-function-definition
 " let g:ycm_autoclose_preview_window_after_insertion = 1
 " 4. Jedi
+" https://github.com/davidhalter/jedi-vim
+" <leader> = '\'
 let g:jedi#completions_enabled = 0
+let g:jedi#goto_command = "<leader>d"  "[GOTO DEFINITION COMMNAD]  go back with ctrl + o
+let g:jedi#goto_assignments_command = "<leader>g"
+let g:jedi#goto_stubs_command = "<leader>s"
+let g:jedi#goto_definitions_command = ""
+let g:jedi#documentation_command = "K"
+let g:jedi#usages_command = "<leader>n"
+let g:jedi#completions_command = "<C-Space>"
+let g:jedi#rename_command = "<leader>r"
 let g:deoplete#enable_at_startup = 1
 " 5. Commentary
 nnoremap <C-_> :Commentary<CR>
@@ -124,6 +137,9 @@ let g:mta_filetypes = {
     \ 'javascript.jsx' : 1,
     \ 'typescript' : 1
     \ }
+" 8. NERDTree 
+" use it with `\tr`
+nnoremap <leader>tr :NERDTree<CR>
 
 :command WQ wq
 :command Wq wq
