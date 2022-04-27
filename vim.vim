@@ -57,7 +57,6 @@ Plug 'tpope/vim-commentary'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'andrewstuart/vim-kubernetes'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'ternjs/tern_for_vim', { 'do' : 'npm install' }  " check ~/.tern-project
 " https://github.com/alvan/vim-closetag
 Plug 'alvan/vim-closetag'
