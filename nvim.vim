@@ -1,3 +1,20 @@
+" [Vim keys]
+" ====== Buffer =======
+" :ls           : show buffer list
+" :e [FILE]     : create new buffer
+" :new          : create empty new buffer
+" :bnext (:bn)  : go to next buffer
+" :bprev (:bp)  : go to prev buffer
+" :b[NUM]       : go to [NUM]th buffer 
+" :bd           : delete current buffer
+" ====== Window =======
+" ctrl + w      : change window
+" ctrl + w + s  : new window on current buffer (horizontal)
+" :split        : new window on current buffer (horizontal)
+" ctrl + w + v  : new window on current buffer (vertical)
+" :vsplit       : new window on current buffer (vertical)
+" ctrl + w + c  : delete current window but keep it on buffer.
+
 syntax on
 
 set encoding=utf-8
@@ -36,6 +53,14 @@ endif
 
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
+:command WQ wq
+:command Wq wq
+:command W w
+:command Q q
+:command E e
+:command Tabnew tabnew
+:command Tanbew tabnew
+
 " [Plugins]
 " 1. gruvbox: vim color template
 " 2. indentpython.vim: indentation for python
@@ -46,19 +71,29 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 " 7. close-tag: add close tag like </tag> automatically for js
 
 call plug#begin('~/.vim/plugged')
+" gruvbox: vim color template
 Plug 'morhetz/gruvbox'
+" indentpython.vim: indentation for python
 Plug 'vim-scripts/indentpython.vim'
+" far.vim: Find And Replace
 Plug 'brooth/far.vim'
+" vim-gitgutter: check git status
 Plug 'airblade/vim-gitgutter'
+" jedi-vim: python auto-completion
+" https://github.com/davidhalter/jedi-vim
 Plug 'davidhalter/jedi-vim'
 Plug 'Shougo/deoplete.nvim'
 Plug 'zchee/deoplete-jedi'
 Plug 'tpope/vim-commentary'
+" YouCompleteMe: code completion engine for vim
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+" vim-javascript: syntex highlight and indentation for js
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'andrewstuart/vim-kubernetes'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'ternjs/tern_for_vim', { 'do' : 'npm install' }  " check ~/.tern-project
+" close-tag: add close tag like </tag> automatically for js
 " https://github.com/alvan/vim-closetag
 Plug 'alvan/vim-closetag'
 Plug 'Valloric/MatchTagAlways'
@@ -66,27 +101,34 @@ Plug 'Valloric/MatchTagAlways'
 Plug 'preservim/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'  " nerdtree extension
 Plug 'ryanoasis/vim-devicons' " nerdtree extension
+" https://github.com/Yggdroot/indentLine
+Plug 'Yggdroot/indentLine'
+" https://github.com/ctrlpvim/ctrlp.vim
+Plug 'ctrlpvim/ctrlp.vim'
+" https://vimawesome.com/plugin/flake8-vim 
+Plug 'andviro/flake8-vim'
+" Vim-Airline
+" https://github.com/vim-airline/vim-airline
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 
-" [Settings for js autocomplete]
-" https://alldrops.info/posts/vim-drops/2018-04-08_javascript-autocompletion-on-vim/
-filetype plugin on
-set omnifunc=syntaxcomplete#Complete
-
-let g:deoplete#enable_at_startup = 1
 
 " [Settings for Plugins]
 " 1. set colorscheme with gruvbox plugin
 colorscheme gruvbox
+
 " 2. enable Farundo cmd in brooth.far.vim plugin
 let g:far#enable_undo=1
+
 " 3. youCompleteme doesn't open up a split window with function definition
 " https://stackoverflow.com/questions/38534285/vim-youcompleteme-plugin-opens-up-a-split-window-with-function-definition
 " let g:ycm_autoclose_preview_window_after_insertion = 1
+
 " 4. Jedi
 " https://github.com/davidhalter/jedi-vim
 " <leader> = '\'
-let g:jedi#completions_enabled = 0
+let g:jedi#completions_enabled = 1
 let g:jedi#goto_command = "<leader>d"  "[GOTO DEFINITION COMMNAD]  go back with ctrl + o
 let g:jedi#goto_assignments_command = "<leader>g"
 let g:jedi#goto_stubs_command = "<leader>s"
@@ -96,9 +138,11 @@ let g:jedi#usages_command = "<leader>n"
 let g:jedi#completions_command = "<C-Space>"
 let g:jedi#rename_command = "<leader>r"
 let g:deoplete#enable_at_startup = 1
+
 " 5. Commentary
 nnoremap <C-_> :Commentary<CR>
 vnoremap <C-_> :Commentary<CR>
+
 " 6. vim-closetag options
 " filenames like *.xml, *.html, *.xhtml, ...
 " These are the file extensions where this plugin is enabled.
@@ -127,6 +171,7 @@ let g:closetag_regions = {
 let g:closetag_shortcut = '>'
 " Add > at current position without closing the current tag, default is ''
 let g:closetag_close_shortcut = '<leader>>'
+
 " 7. MatchTagAlways options
 let g:mta_filetypes = {
     \ 'html' : 1,
@@ -136,28 +181,36 @@ let g:mta_filetypes = {
     \ 'javascript.jsx' : 1,
     \ 'typescript' : 1
     \ }
+
 " 8. NERDTree 
 " use it with `\tr`
 nnoremap <leader>tr :NERDTree<CR>
+let NERDTreeMapActivateNode='<Right>'
+let NERDTreeMapOpenInTab='<ENTER>'
 
-:command WQ wq
-:command Wq wq
-:command W w
-:command Q q
-:command Tabnew tabnew
-:command Tanbew tabnew
+" 9. indentLine
+let g:indentLine_enabled = 1
+let g:indentLine_char = '┊'
 
-" For vim-flake8
-" To change flake8 options, go to ~/.config/flake8
-"execute pathogen#infect()
-"filetype plugin indent on
-"autocmd BufWritePost *.py call flake8#Flake8()
-"let g:flake8_show_in_file=0
-"let g:flake8_show_quickfix=1
-"let g:flake8_show_in_gutter=1
-"let g:flake8_quickfix_height=7
-"let g:flake8_max_markers=500
+" 10. flake8-vim
+let g:PyFlakeOnWrite = 1
 
+
+" 11. js autocomplete
+" https://alldrops.info/posts/vim-drops/2018-04-08_javascript-autocompletion-on-vim/
+filetype plugin on
+set omnifunc=syntaxcomplete#Complete
+
+" 12. airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1  # show buffer number
+let g:airline#extensions#tabline#buffer_idx_mode = 1  # show buffer index
+
+" 13. deoplete
+let g:deoplete#enable_at_startup = 1
+
+" For ctrlp
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
 " [Resolve Problem]
 " 1. The ycmd server SHUT DOWN (restart with :YcmRestartServer) ISSUE
