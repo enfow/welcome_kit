@@ -1,22 +1,41 @@
-" [Vim keys]
-" ====== Buffer =======
-" :ls           : show buffer list
-" :e [FILE]     : create new buffer
-" :new          : create empty new buffer
-" :bnext (:bn)  : go to next buffer
-" :bprev (:bp)  : go to prev buffer
-" :b[NUM]       : go to [NUM]th buffer 
-" :bd           : delete current buffer
-" ====== Window =======
-" ctrl + w      : change window
-" ctrl + w + s  : new window on current buffer (horizontal)
-" :split        : new window on current buffer (horizontal)
-" ctrl + w + v  : new window on current buffer (vertical)
-" :vsplit       : new window on current buffer (vertical)
-" ctrl + w + c  : delete current window but keep it on buffer.
+" *********************
+" **     VIM KEYS    **
+" *********************
+"
+" ======= Buffer =======
+" :ls               : show buffer list
+" :e [FILE]         : create new buffer
+" :new              : create empty new buffer
+" :bnext (:bn)      : go to next buffer
+" :bprev (:bp)      : go to prev buffer
+" :b[NUM]           : go to [NUM]th buffer 
+" :bd               : delete current buffer
+"
+" ======= Window =======
+" [MOVE]
+" ctrl + w + arrow  : change window
+" ctrl + w + w      : go to next window
+" ctrl + w + p      : go to prev window
+"
+" [CREATE NEW WINDOW]
+" ctrl + w + s      : new window on current buffer (horizontal)
+" :split            : new window on current buffer (horizontal)
+" ctrl + w + v      : new window on current buffer (vertical)
+" :vsplit (:vsp)    : new window on current buffer (vertical)
+"
+" [CLOSE WINDOW]
+" :close            : delete current window but keep it on buffer.
+" :q                : delete current window but keep it on buffer.
+" ctrl + w + x      : swap windows
+"
+" [ETC]
+" ctrl + w + c      : delete current window but keep it on buffer.
+
+
 
 syntax on
 
+set splitright  " confif for window
 set encoding=utf-8
 set noerrorbells
 set tabstop=4
@@ -217,10 +236,6 @@ nnoremap <leader>ff :lua require('telescope.builtin').find_files{ find_command =
 nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
-" nnoremap <leader>ff <cmd>Telescope find_files<cr>
-" nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-" nnoremap <leader>fb <cmd>Telescope buffers<cr>
-" nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 
 " For ctrlp
