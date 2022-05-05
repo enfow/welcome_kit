@@ -111,6 +111,9 @@ Plug 'andviro/flake8-vim'
 " https://github.com/vim-airline/vim-airline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+" telescope
+Plug 'nvim-lua/plenary.nvim'  " dependency
+Plug 'nvim-telescope/telescope.nvim'
 call plug#end()
 
 
@@ -195,7 +198,6 @@ let g:indentLine_char = '┊'
 " 10. flake8-vim
 let g:PyFlakeOnWrite = 1
 
-
 " 11. js autocomplete
 " https://alldrops.info/posts/vim-drops/2018-04-08_javascript-autocompletion-on-vim/
 filetype plugin on
@@ -203,11 +205,23 @@ set omnifunc=syntaxcomplete#Complete
 
 " 12. airline
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1  # show buffer number
-let g:airline#extensions#tabline#buffer_idx_mode = 1  # show buffer index
+let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#buffer_idx_mode = 1
 
-" 13. deoplete
+":checkhealth telescope 13. deoplete
 let g:deoplete#enable_at_startup = 1
+
+" 14. telescope
+" nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>ff :lua require('telescope.builtin').find_files{ find_command = {'rg', '--files', '--hidden', '-g', '!node_modules/**'} }<CR>
+nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+" nnoremap <leader>ff <cmd>Telescope find_files<cr>
+" nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+" nnoremap <leader>fb <cmd>Telescope buffers<cr>
+" nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
 
 " For ctrlp
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
