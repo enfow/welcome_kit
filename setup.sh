@@ -2,7 +2,7 @@ VIM = "vim" # or nvim
 
 # apt install
 sudo apt-get update
-sudo apt install -y docker.io tmux make net-tools
+sudo apt install -y docker.io tmux make net-tools ripgrep
 
 # default env
 export LANGUAGE=en_US.UTF-8
