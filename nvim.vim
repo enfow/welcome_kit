@@ -133,6 +133,8 @@ Plug 'vim-airline/vim-airline-themes'
 " telescope
 Plug 'nvim-lua/plenary.nvim'  " dependency
 Plug 'nvim-telescope/telescope.nvim'
+" lazygit
+Plug 'kdheepak/lazygit.nvim'
 call plug#end()
 
 
@@ -209,6 +211,9 @@ let g:mta_filetypes = {
 nnoremap <leader>tr :NERDTree<CR>
 let NERDTreeMapActivateNode='<Right>'
 let NERDTreeMapOpenInTab='<ENTER>'
+" close vim when NERDTree window is the last window
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
 
 " 9. indentLine
 let g:indentLine_enabled = 1
@@ -237,9 +242,16 @@ nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 
-
-" For ctrlp
+" 15. For ctrlp
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+
+" 16. Lazy Git
+nnoremap <silent> <leader>G :LazyGit<CR>
+let g:lazygit_floating_window_winblend = 0 " transparency of floating window
+let g:lazygit_floating_window_scaling_factor = 0.9 " scaling factor for floating window
+let g:lazygit_floating_window_corner_chars = ['╭', '╮', '╰', '╯'] " customize lazygit popup window corner characters
+let g:lazygit_floating_window_use_plenary = 0 " use plenary.nvim to manage floating window if available
+let g:lazygit_use_neovim_remote = 1 " fallback to 0 if neovim-remote is not installedc
 
 " [Resolve Problem]
 " 1. The ycmd server SHUT DOWN (restart with :YcmRestartServer) ISSUE
