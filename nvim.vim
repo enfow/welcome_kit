@@ -31,8 +31,6 @@
 " [ETC]
 " ctrl + w + c      : delete current window but keep it on buffer.
 
-
-
 syntax on
 
 set splitright  " confif for window
@@ -59,6 +57,7 @@ set smarttab
 set cindent
 set background=dark
 set statusline=%f
+set scrolloff=5
 
 if has("autocmd")
   filetype on
@@ -68,7 +67,11 @@ if has("autocmd")
   autocmd FileType json setlocal ts=2 sts=2 sw=2
   autocmd FileType yaml setlocal ts=2 sts=2 sw=2
   autocmd FileType markdown setlocal ts=2 sts=2 sw=2
+  autocmd FileType handlebar setlocal ts=2 sts=2 sw=2
+  autocmd FileType css setlocal ts=2 sts=2 sw=2
+  autocmd BufEnter,BufRead *.hbs set filetype=html  " handlebars is treated like html file
 endif
+
 
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
@@ -79,6 +82,11 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 :command E e
 :command Tabnew tabnew
 :command Tanbew tabnew
+" blackhole delete
+nnoremap <leader>d "_d
+nnoremap <leader>dd "_dd
+xnoremap <leader>d "_d
+xnoremap <leader>dd "_dd
 
 " [Plugins]
 " 1. gruvbox: vim color template
@@ -135,7 +143,12 @@ Plug 'nvim-lua/plenary.nvim'  " dependency
 Plug 'nvim-telescope/telescope.nvim'
 " lazygit
 Plug 'kdheepak/lazygit.nvim'
+" copliot
+Plug 'github/copilot.vim'
 call plug#end()
+
+" To solve 'E523: Not allowed here' error
+inoremap <silent> <C-s> <ESC>:w<CR>
 
 
 " [Settings for Plugins]
@@ -170,10 +183,10 @@ vnoremap <C-_> :Commentary<CR>
 " 6. vim-closetag options
 " filenames like *.xml, *.html, *.xhtml, ...
 " These are the file extensions where this plugin is enabled.
-let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js,*.ts'
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js,*.ts,*.hbs'
 " filenames like *.xml, *.xhtml, ...
 " This will make the list of non-closing tags self-closing in the specified files.
-let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.hbs'
 " filetypes like xml, html, xhtml, ...
 " These are the file types where this plugin is enabled.
 let g:closetag_filetypes = 'html,xhtml,phtml'
@@ -211,8 +224,11 @@ let g:mta_filetypes = {
 nnoremap <leader>tr :NERDTree<CR>
 let NERDTreeMapActivateNode='<Right>'
 let NERDTreeMapOpenInTab='<ENTER>'
+let NERDTreeShowHidden=1
 " close vim when NERDTree window is the last window
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+" open nerdtree by default
+au VimEnter *  NERDTree
 
 
 " 9. indentLine

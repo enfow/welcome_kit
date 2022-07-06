@@ -45,6 +45,13 @@ ln -s ${PWD}/.tmux.conf ~/.tmux.conf
 if [VIM == "vim"]
 then
         ln -s ${PWD}/vim.vim ~/.vimrc
+        # vim plug
+        curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 elif [VIM == "nvim"]
 then
         ln -s ${PWD}/nvim.vim ~/.vimrc
+        sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+# 10k for oh my zsh
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+echo 'ZSH_THEME="powerlevel10k/powerlevel10k"' >> ~/.zshrc
