@@ -38,6 +38,11 @@ sudo apt install -y nginx
 curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -  # nodejs v16
 sudo apt install -y npm nodejs
 
+# nvim
+sudo apt install neovim
+sudo apt install python-neovim
+sudo apt install python3-neovim
+
 # config for tmux
 ln -s ${PWD}/.tmux.conf ~/.tmux.conf
 
